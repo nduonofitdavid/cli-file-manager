@@ -72,15 +72,19 @@ def sort_by_size(directory):
         directory: str
     """
     os.chdir(directory)
+    seperator = os.sep
 
     current_path = os.getcwd()
 
-    os.mkdir("large")
-    os.mkdir("medium")
-    os.mkdir("small")
+    try:
+        os.mkdir("large")
+        os.mkdir("medium")
+        os.mkdir("small")
+    except FileExistsError:
+        ...
 
     for item in os.scandir():
-        file_regex = r"^([a-zA-Z]+\d*)\.([a-zA-Z]{1,10})$"
+        file_regex = r"^([a-zA-Z_\-0-9]+\d*)\.([a-zA-Z]{1,10})$"
 
         if(re.match(file_regex, item.name)):
             name = item.name
@@ -94,8 +98,8 @@ def sort_by_size(directory):
                 category = 'medium'
             else:
                 category = 'large'
-            destination = current_path + f'/{category}/{name}'
-            source = current_path + f'/{name}'
+            destination = current_path + f'{seperator}{category}{seperator}{name}'
+            source = current_path + f'{seperator}{name}'
             os.rename(source, destination)
             
         
@@ -109,7 +113,8 @@ def sort_by_size(directory):
                     print(f"The item `{item}` is not a directory and a file also")
 
             
-sort_by_size('/home/nduonofit/Projects/testdir')
+# sort_by_size('/home/nduonofit/Projects/testdir')
+print(os.sep)
 
 # if the item is not a file, but is a folder, move into that directory, and then call the parent function again on that directory
 
@@ -124,3 +129,4 @@ sort_by_size('/home/nduonofit/Projects/testdir')
 # 1 KB	1,024 bytes
 # 1 MB	1,024 KB = 1,048,576 bytes
 # 1 GB	1,024 MB = 1,073,741,824 bytes
+

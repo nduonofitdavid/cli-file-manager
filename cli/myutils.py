@@ -16,7 +16,7 @@ def get_extensions(folder: List[str]) -> List[str]:
     for file in folder:
         match = re.match(extension_regex, file)
         if match:
-            file_name, file_ext = match.groups()
+            _, file_ext = match.groups()
             if file_ext not in extensions:
                 extensions.append(file_ext)
     return extensions

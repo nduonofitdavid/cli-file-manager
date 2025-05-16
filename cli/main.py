@@ -1,37 +1,27 @@
 import argparse
-import os
-import shutil
 
-from  myutils import get_extensions, make_folders
-from organizer import sort_by_folder
 
+from organizer import sort_by_extension, sort_by_size
 
 main_parser = argparse.ArgumentParser(
-    prog="David Nduonofit's Sort",
+    prog="Terminal Sort",
     description='A CLI tool to sort your files',
-    epilog='Yeah this is an epilog, you get the idea'
+    epilog='This is a tool that sorts all the files in a directory and subdirectory, and also tracks the changes made for future undo actions.'
+    
 )
 
-main_parser.add_argument('-o', '--organize', action='store_true')
-main_parser.add_argument('--by', type=str, required=True, help='What do you want to sort the files by?')
+main_parser.add_argument('--by', type=str, required=True, help='What do you want to sort this folder by?')
 main_parser.add_argument('--path', type=str, required=True, default='./', help='Directory path to the files')
 
 args = main_parser.parse_args()
 
+match args.by:
+    case "extension" | "e":
+        sort_by_extension(args.path)
+    case "date" | "d":
+        ...
+    case "size" | "s":
+        sort_by_size(args.path)
+    case _:
+        print(f"Invalid option: {args.by}\nUse extension or e , date or d, size or s, to sort the folder")
 
-def main():
-    match args.by:
-        case "extension":
-            folder = os.listdir(args.path)
-            directory = args.path   
-            extensions = get_extensions(folder)
-
-            if make_folders(extensions, directory):
-                sort_by_folder(folder, directory)
-                print("operation successful")
-        case _:
-            raise ValueError
-
-
-if __name__ == '__main__':
-    main()

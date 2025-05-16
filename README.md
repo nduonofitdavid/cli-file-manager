@@ -13,3 +13,6 @@ python3 main.py -o --by extension --path ./directory
 
 
 ```
+
+
+
