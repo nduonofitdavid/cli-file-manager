@@ -1,7 +1,7 @@
 import argparse
 
 
-from organizer import sort_by_extension, sort_by_size
+from organizer import sort_by_extension, sort_by_size, sort_by_date
 
 main_parser = argparse.ArgumentParser(
     prog="Terminal Sort",
@@ -19,6 +19,7 @@ match args.by:
     case "extension" | "e":
         sort_by_extension(args.path)
     case "date" | "d":
+        sort_by_date(args.path)
         ...
     case "size" | "s":
         sort_by_size(args.path)

@@ -2,7 +2,7 @@ import os
 from typing import List
 import json
 
-def sort_by_size(directory: str, subdirectory:str = None) -> bool:
+def sort_by_size(directory: str, subdirectory:str | None = None) -> bool | None:
     """
     Description: This function takes a directory and then sorts all the items in that directory
     based on size.
@@ -44,7 +44,7 @@ def sort_by_size(directory: str, subdirectory:str = None) -> bool:
                 file_size = entry.stat().st_size
                 source = entry.path
         
-                if file_size  < 10_240:
+                if file_size < 10_240:
                     destination = os.path.join(small_destination, entry.name)
 
                 elif file_size < 1_048_576:
