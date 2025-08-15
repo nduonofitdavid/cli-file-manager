@@ -1,7 +1,7 @@
 # cli-file-manager
 
 
-A CLI tool to manage files in a directory
+Sort files in a directory through command line arguments.
 
 # Sample Usage
 
